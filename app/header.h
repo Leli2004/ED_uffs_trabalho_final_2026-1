@@ -45,11 +45,11 @@ typedef struct bookNode BookNode;
 // Interfaces
 
 // menu
-void showMainMenu();
-void showRegistrationMenu();
-void showSearchMenu();
-void showUpdateMenu();
-void showDeleteMenu();
+int getMainMenu();
+int getRegistrationMenu();
+int getSearchMenu();
+int getUpdateMenu();
+int getDeleteMenu();
 
 // cadastro - registration
 BookNode *registerBook(BookNode *books, int *nextId);
@@ -72,7 +72,7 @@ void updateUser(UserNode *users);
 
 // exclusão - delete
 BookNode *deleteBook(BookNode *books);
-UserNode *deleteUser(UserNode *users);
+UserNode *deleteUser(UserNode *users, BookNode *books);
 
 // empréstimo - loan
 void loanBook(BookNode *books, UserNode *users);
@@ -83,7 +83,7 @@ void returnBook(BookNode *books);
 // funções auxiliares com scanf
 int askBookId();
 int askPublicationYear();
-char *askEmail(char email[]);
+void askEmail(char email[]);
 void askName(char name[]);
 void askTitle(char title[]);
 void askAuthor(char author[]);
@@ -91,3 +91,6 @@ void askAuthor(char author[]);
 // funções auxiliares para memória
 BookNode *freeBooks(BookNode *books);
 UserNode *freeUsers(UserNode *users);
+
+// funções auxiliares
+int userHasLoans(BookNode *books, char email[]);
