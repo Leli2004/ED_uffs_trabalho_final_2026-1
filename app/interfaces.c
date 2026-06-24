@@ -59,9 +59,8 @@ UserNode *findUserByEmail(UserNode *users, char email[]){
 
 void findUsersByName(UserNode *users, char name[]){
     //Percorre a lista e imprime todos os usuários cujo nome seja igual ao nome recebido.
-    //Se não encontrar nenhum, mostra “User not registered”.
+    //Se não encontrar nenhum, mostra “Usuário não cadastrado”.
 }
-
 
 void findLoansByEmail(BookNode *books, char email[]){
     //Percorre a lista de livros e imprime todos os livros com status == LOANED e loanerEmail igual ao email recebido.
@@ -80,11 +79,17 @@ void updateUser(UserNode *users){
 BookNode *deleteBook(BookNode *books){
     //Pede o ID, procura o livro na lista, remove o nó com free e retorna a lista atualizada.
     //Precisa tratar quando o livro removido é o primeiro nó.   
+    //Só permite excluir se o livro não estiver emprestado. 
 }
 
-UserNode *deleteUser(UserNode *users){
+int userHasLoans(BookNode *books, char email[]) {
+    //Verifica se usuário tem empréstimos
+}
+
+UserNode *deleteUser(UserNode *users, BookNode *books){
     //Pede o email, procura o usuário na lista, remove o nó com free e retorna a lista atualizada.
     //Precisa tratar quando o usuário removido é o primeiro nó.
+    //Só permite excluir se usuário não tiver empréstimos (userHasLoans)
 }
 
 void loanBook(BookNode *books, UserNode *users){
