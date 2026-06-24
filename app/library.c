@@ -128,46 +128,123 @@ UserNode *registerUser(UserNode *users){
     return users;
 }
 
+void printBook(Book book) {
+    printf("\n");
+    printf("id: %d\n", book.id);
+    printf("título: %s\n", book.title);
+    printf("autor: %s\n", book.author);
+    printf("ano: %d\n", book.publicationYear);
+    printf("status: %d\n", book.status);
+    if (book.status == LOANED) {
+        printf("emprestado para: %s\n", book.loanerEmail);
+    }
+    printf("\n");
+}
+
 void listBooks(BookNode *books){
-    //Percorre a lista de livros e imprime todos os dados de cada livro.
+    if (books == NULL) {
+        printf("\n=> Nenhum livro cadastrado.\n");
+        return;
+    }
+
+    printf("\n=> Lista de livros cadastrados:\n");
+
+    for (BookNode *aux=books; aux!=NULL; aux=aux->next) {
+        printBook(aux->data);
+    }
 }
 
 BookNode *findBookById(BookNode *books, int id){
-    //Percorre a lista de livros procurando um livro com o ID recebido. 
-    // Retorna o ponteiro para o nó encontrado ou NULL.
-    return books;
+    BookNode *aux = books;
+
+    while (aux != NULL) {
+        if (aux->data.id == id) {
+            return aux;
+        }
+        aux = aux->next;
+    }
+    
+    return NULL; // caso não encontre
 }
 
 void findBooksByAuthor(BookNode *books, char author[]){
-    //Percorre a lista e imprime todos os livros cujo autor seja igual ao autor recebido. 
-    // Se não encontrar nenhum, mostra “Livro não encontrado”.    
+    int found = 0;
+
+    for (BookNode *aux=books; aux!=NULL; aux=aux->next) {
+        if (strcmp(aux->data.author, author) == 0) {
+            printBook(aux->data);
+            found = 1;
+        }
+    }
+
+    if (!found) {
+        printf("\n=> Livro nao encontrado.\n");
+    }
+}
+
+void printUser(User user) {
+    printf("\n");
+    printf("email: %s\n", user.email);
+    printf("nome: %s\n", user.name);
+    printf("\n");
 }
 
 void listUsers(UserNode *users){
-    //Percorre a lista de usuários e imprime email e nome de cada usuário.
+    if (users == NULL) {
+        printf("\n=> Nenhum usuario cadastrado.\n");
+        return;
+    }
+
+    printf("\n=> Lista de usuarios cadastrados:\n");
+
+    for (UserNode *aux=users; aux!=NULL; aux=aux->next) {
+        printUser(aux->data);
+    }
 }
 
 UserNode *findUserByEmail(UserNode *users, char email[]){
-    UserNode *current = users;
+    UserNode *aux = users;
 
-    while (current != NULL) {
-        if (strcmp(current->data.email, email) == 0) {
-            return current;
+    while (aux != NULL) {
+        if (strcmp(aux->data.email, email) == 0) {
+            return aux;
         }
-        current = current->next;
+        aux = aux->next;
     }
 
     return NULL; // se não encontrar email
 }
 
 void findUsersByName(UserNode *users, char name[]){
-    //Percorre a lista e imprime todos os usuários cujo nome seja igual ao nome recebido.
-    //Se não encontrar nenhum, mostra “Usuário não cadastrado”.
+    int found = 0;
+
+    for (UserNode *aux=users; aux!=NULL; aux=aux->next) {
+        if (strcmp(aux->data.name, name) == 0) {
+            printUser(aux->data);
+            found = 1;
+        }
+    }
+    
+    if (!found) {
+        printf("\n=> Usuário não cadastrado.\n");
+    }
 }
 
 void findLoansByEmail(BookNode *books, char email[]){
-    //Percorre a lista de livros e imprime todos os livros com status == LOANED e loanerEmail igual ao email recebido.
+    int found = 0;
+
+    for(BookNode *aux=books; aux!=NULL; aux=aux->next) {
+        if (aux->data.status == LOANED && strcmp(aux->data.loanerEmail, email) == 0) {
+            printBook(aux->data);
+            found = 1;
+        }
+    }
+
+    if (!found) {
+        printf("\n=> Nenhum empréstimo encontrado para este email.\n");
+    }
 }
+
 
 void updateBook(BookNode *books){
     //Pede o ID do livro, busca com findBookById. 

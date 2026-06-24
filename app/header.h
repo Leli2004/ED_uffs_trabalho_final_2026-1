@@ -56,10 +56,12 @@ BookNode *registerBook(BookNode *books, int *nextId);
 UserNode *registerUser(UserNode *users);
 
 // consulta - search
+void printBook(Book book);
 void listBooks(BookNode *books);
 BookNode *findBookById(BookNode *books, int id);
 void findBooksByAuthor(BookNode *books, char author[]);
 
+void printUser(User user);
 void listUsers(UserNode *users);
 UserNode *findUserByEmail(UserNode *users, char email[]);
 void findUsersByName(UserNode *users, char name[]);
