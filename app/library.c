@@ -93,7 +93,6 @@ BookNode *registerBook(BookNode *books, int *nextId){
     new->data.status = AVAILABLE; // default status
     strcpy(new->data.loanerEmail, ""); // default é vazio
 
-    printf("\n");
     askTitle(new->data.title);
     askAuthor(new->data.author);
     new->data.publicationYear = askPublicationYear();
@@ -108,13 +107,23 @@ BookNode *registerBook(BookNode *books, int *nextId){
 }
 
 UserNode *registerUser(UserNode *users){
-    //Pede email e nome.
-    //Antes de cadastrar, verifica se o email já existe usando findUserByEmail.
-    //Se não existir, aloca um novo nó, insere na lista e retorna a lista atualizada.
+    char email[MAX_TEXT];
+    askEmail(email);
 
-    // Deve:
-    // pedir os dados necessários (conforme definido na struct criada)
-    // email deve ser unico => validar
+    if (findUserByEmail(users, email) != NULL) {
+        printf("\nERROR: Usuário com email já cadastrado!\n");
+        return users;
+    }
+
+    UserNode *new = (UserNode*) malloc(sizeof(UserNode));
+
+    strcpy(new->data.email, email);
+    askName(new->data.name);
+
+    new->next = users;
+    users = new;
+
+    printf("\nUsuário '%s' cadastrado com sucesso!\n", new->data.email);
 
     return users;
 }
@@ -139,9 +148,16 @@ void listUsers(UserNode *users){
 }
 
 UserNode *findUserByEmail(UserNode *users, char email[]){
-    //Percorre a lista de usuários procurando o email recebido. 
-    // Retorna o ponteiro para o nó encontrado ou NULL.
-    return users;
+    UserNode *current = users;
+
+    while (current != NULL) {
+        if (strcmp(current->data.email, email) == 0) {
+            return current;
+        }
+        current = current->next;
+    }
+
+    return NULL; // se não encontrar email
 }
 
 void findUsersByName(UserNode *users, char name[]){
@@ -206,14 +222,18 @@ int askPublicationYear(){
 }
 
 void askEmail(char email[]){
-    //Pede um email e salva no vetor recebido.
+    printf("\n");
+    printf(">>> Informe o e-mail: ");
+    scanf(" %99[^\n]", email);
 }
 
 void askName(char name[]){
-    //Pede um nome e salva no vetor recebido.
+    printf(">>> Informe o nome: ");
+    scanf(" %99[^\n]", name);
 }
 
 void askTitle(char title[]){
+    printf("\n");
     printf(">>> Informe o título: ");
     scanf(" %99[^\n]", title);
 }
