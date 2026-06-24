@@ -45,11 +45,11 @@ typedef struct bookNode BookNode;
 // Interfaces
 
 // menu
-void showMainMenu();
-void showRegistrationMenu();
-void showSearchMenu();
-void showUpdateMenu();
-void showDeleteMenu();
+int getMainMenu();
+int getRegistrationMenu();
+int getSearchMenu();
+int getUpdateMenu();
+int getDeleteMenu();
 
 // cadastro - registration
 BookNode *registerBook(BookNode *books, int *nextId);

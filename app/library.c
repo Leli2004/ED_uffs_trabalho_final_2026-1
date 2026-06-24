@@ -2,25 +2,86 @@
 #include <stdlib.h>
 #include "header.h"
 
-void showMainMenu(){
-    //Mostra o menu principal e controla as opções: cadastro, consulta, atualização, exclusão, empréstimo, devolução e sair.
+int getMainMenu(){
+    int option=0;
+
+    printf("\n----------MENU----------\n");
+    printf("1 - Cadastro\n");
+    printf("2 - Consulta\n");
+    printf("3 - Atualizacao\n");
+    printf("4 - Exclusao\n");
+    printf("5 - Emprestimo\n");
+    printf("6 - Devolucao\n");
+    printf("0 - Sair\n");
+
+    printf("\nDigite a opção escolhida: ");
+    scanf("%d", &option);
+
+    return option;
 }
 
-void showRegistrationMenu(){
-    //Mostra o submenu de cadastro: cadastrar livro, cadastrar usuário ou voltar.
+int getRegistrationMenu(){
+    int option=0;
+
+    printf("\n----------CADASTRO----------\n");
+    printf("1 - Livros\n");
+    printf("2 - Usuarios\n");
+    printf("0 - Voltar\n");
+
+    printf("\nDigite a opção escolhida: ");
+    scanf("%d", &option);
+
+    return option;
 }
 
-void showSearchMenu(){
-    //Mostra o submenu de consulta: livros, usuários, empréstimos ou voltar.
+int getSearchMenu(){
+    int option=0;
+
+    printf("\n----------CONSULTA----------\n");
+    printf("1 - Livros\n");
+    printf("2 - Usuarios\n");
+    printf("3 - Emprestimos\n");
+    printf("0 - Voltar\n");
+
+    printf("\nDigite a opção escolhida: ");
+    scanf("%d", &option);
+
+    return option;
 }
 
-void showUpdateMenu(){
-    //Mostra o submenu de atualização: atualizar livro, atualizar usuário ou voltar.
+int getUpdateMenu(){
+    int option=0;
+
+    printf("\n----------ATUALIZAÇÃO----------\n");
+    printf("1 - Livros\n");
+    printf("2 - Usuarios\n");
+    printf("0 - Voltar\n");
+
+    printf("\nDigite a opção escolhida: ");
+    scanf("%d", &option);
+
+    return option;
 }
 
-void showDeleteMenu(){
-    //Mostra o submenu de exclusão: excluir livro, excluir usuário ou voltar.
+int getDeleteMenu(){
+    int option=0;
+
+    printf("\n----------EXCLUSÃO----------\n");
+    printf("1 - Livros\n");
+    printf("2 - Usuarios\n");
+    printf("0 - Voltar\n");
+
+    printf("\nDigite a opção escolhida: ");
+    scanf("%d", &option);
+
+    return option;
 }
+
+/*  LLM USE:
+    Utilizada para gerar a implementação base das funções dos menus.
+    O auxílio consistiu na criação de funções com estrutura semelhante,
+    alterando apenas as opções apresentadas em cada submenu.
+*/
 
 BookNode *registerBook(BookNode *books, int *nextId){
     //Aloca um novo nó com malloc, pede título, autor e ano. O ID deve vir de *nextId.
