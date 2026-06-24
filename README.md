@@ -2,6 +2,12 @@
 # Trabalho Final - Estrutura de Dados I  2026-1
 ## Sistema de Controle de Biblioteca
 
+#### Estudantes:
+* Allana A. de Lima
+* Danieli N. Dalla Vecchia
+
+------
+
 ### Descrição
 O trabalho final do CCR Estrutura de Dados consistirá no desenvolvimento de um sistema de controle de biblioteca. O sistema deverá permitir o cadastro e gerenciamento de livros e usuários.
 
@@ -22,13 +28,13 @@ Como a entrada de valores alfanuméricos (string) em C gera problemas no scanf, 
 ### Funcionalidades (Menu)
 
 O sistema deverá apresentar um menu com as seguintes opções:
-1. Cadasto
-2. Consulta
-3. Atualização
-4. Exclusão
-5. Empréstimo
-6. Devolução
-0. Sair
+- 1. Cadastro
+- 2. Consulta
+- 3. Atualização
+- 4. Exclusão
+- 5. Empréstimo
+- 6. Devolução
+- 0. Sair
 
 #### 1 Cadastro    
 Acessa a opção de cadastros. Aparece um novo menu com as seguintes opções:
