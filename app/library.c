@@ -245,15 +245,38 @@ void findLoansByEmail(BookNode *books, char email[]){
     }
 }
 
-
 void updateBook(BookNode *books){
-    //Pede o ID do livro, busca com findBookById. 
-    //Se encontrar, permite alterar título, autor e ano de publicação.
+    int id = askBookId();
+
+    BookNode *book = findBookById(books, id);
+
+    if (book == NULL) {
+        printf("\n=> Livro nao encontrado.\n");
+        return;
+    }
+
+    printf("\nInforme os novos dados do livro:\n");
+    askTitle(book->data.title);
+    askAuthor(book->data.author);
+    book->data.publicationYear = askPublicationYear();
+
+    printf("\n=> Livro ID %d atualizado com sucesso!\n", book->data.id);
 }
 
 void updateUser(UserNode *users){
-    //Pede o email do usuário, busca com findUserByEmail.
-    //Se encontrar, permite alterar o nome.
+    char email[MAX_TEXT];
+    askEmail(email);
+
+    UserNode *user = findUserByEmail(users, email);
+    if (user == NULL) {
+        printf("\n=> Usuário não cadastrado.\n");
+        return;
+    }
+    
+    printf("\nInforme o novo nome:\n");
+    askName(user->data.name);
+
+    printf("\nUsuário '%s' atualizado com sucesso!\n", user->data.email);
 }
 
 BookNode *deleteBook(BookNode *books){
