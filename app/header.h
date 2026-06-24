@@ -94,3 +94,4 @@ UserNode *freeUsers(UserNode *users);
 
 // funções auxiliares
 int userHasLoans(BookNode *books, char email[]);
+int generateBookId(int *nextId);

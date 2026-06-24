@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "header.h"
+
+#define MAX_TEXT 100
 
 int getMainMenu(){
     int option=0;
@@ -84,9 +87,23 @@ int getDeleteMenu(){
 */
 
 BookNode *registerBook(BookNode *books, int *nextId){
-    //Aloca um novo nó com malloc, pede título, autor e ano. O ID deve vir de *nextId.
-    //O status inicia como AVAILABLE e loanerEmail inicia vazio. 
-    //Insere o livro na lista e retorna a lista atualizada.
+    BookNode *new = (BookNode*) malloc(sizeof(BookNode));
+
+    new->data.id = generateBookId(nextId); // incremental automaticamente
+    new->data.status = AVAILABLE; // default status
+    strcpy(new->data.loanerEmail, ""); // default é vazio
+
+    printf("\n");
+    askTitle(new->data.title);
+    askAuthor(new->data.author);
+    new->data.publicationYear = askPublicationYear();
+
+    // Adiciona sempre no início da lista
+    new->next = books;
+    books = new;
+
+    printf("\nLivro ID %d cadastrado com sucesso!\n", new->data.id);
+
     return books;
 }
 
@@ -94,6 +111,11 @@ UserNode *registerUser(UserNode *users){
     //Pede email e nome.
     //Antes de cadastrar, verifica se o email já existe usando findUserByEmail.
     //Se não existir, aloca um novo nó, insere na lista e retorna a lista atualizada.
+
+    // Deve:
+    // pedir os dados necessários (conforme definido na struct criada)
+    // email deve ser unico => validar
+
     return users;
 }
 
@@ -170,13 +192,17 @@ void returnBook(BookNode *books){
 }
 
 int askBookId(){
-    //Pede e retorna um ID de livro.
-    return 0;
+    int id;
+    printf(">>> Informe o ID do livro: ");
+    scanf("%d", &id);
+    return id;
 }
 
 int askPublicationYear(){
-    //Pede e retorna o ano de publicação.
-    return 0;
+    int year;
+    printf(">>> Informe o ano de publicação: ");
+    scanf("%d", &year);
+    return year;
 }
 
 void askEmail(char email[]){
@@ -188,12 +214,21 @@ void askName(char name[]){
 }
 
 void askTitle(char title[]){
-    //Pede um título e salva no vetor recebido.
+    printf(">>> Informe o título: ");
+    scanf(" %99[^\n]", title);
 }
 
 void askAuthor(char author[]){
-    //Pede um autor e salva no vetor recebido.
+    printf(">>> Informe o autor: ");
+    scanf(" %99[^\n]", author);
 }
+
+/*
+    LLM USE:
+    Utilizada para sugerir o formato de leitura scanf(" %99[^\n]", ...).
+    Permite ler linhas completas até o ENTER, incluindo espaços, sem a necessidade do fgets().
+    Limita a entrada a 99 caracteres para evitar overflow.
+*/
 
 BookNode *freeBooks(BookNode *books){
     //Percorre a lista de livros, libera todos os nós com free e retorna NULL.
@@ -203,4 +238,10 @@ BookNode *freeBooks(BookNode *books){
 UserNode *freeUsers(UserNode *users){
     //Percorre a lista de usuários, libera todos os nós com free e retorna NULL.
     return users;
+}
+
+int generateBookId(int *nextId) {
+    int id = *nextId;
+    (*nextId)++;
+    return id;
 }
