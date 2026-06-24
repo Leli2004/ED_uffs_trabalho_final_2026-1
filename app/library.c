@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "interfaces.h"
+#include "header.h"
 
 void showMainMenu(){
     //Mostra o menu principal e controla as opções: cadastro, consulta, atualização, exclusão, empréstimo, devolução e sair.
@@ -26,12 +26,14 @@ BookNode *registerBook(BookNode *books, int *nextId){
     //Aloca um novo nó com malloc, pede título, autor e ano. O ID deve vir de *nextId.
     //O status inicia como AVAILABLE e loanerEmail inicia vazio. 
     //Insere o livro na lista e retorna a lista atualizada.
+    return books;
 }
 
 UserNode *registerUser(UserNode *users){
     //Pede email e nome.
     //Antes de cadastrar, verifica se o email já existe usando findUserByEmail.
     //Se não existir, aloca um novo nó, insere na lista e retorna a lista atualizada.
+    return users;
 }
 
 void listBooks(BookNode *books){
@@ -41,6 +43,7 @@ void listBooks(BookNode *books){
 BookNode *findBookById(BookNode *books, int id){
     //Percorre a lista de livros procurando um livro com o ID recebido. 
     // Retorna o ponteiro para o nó encontrado ou NULL.
+    return books;
 }
 
 void findBooksByAuthor(BookNode *books, char author[]){
@@ -55,6 +58,7 @@ void listUsers(UserNode *users){
 UserNode *findUserByEmail(UserNode *users, char email[]){
     //Percorre a lista de usuários procurando o email recebido. 
     // Retorna o ponteiro para o nó encontrado ou NULL.
+    return users;
 }
 
 void findUsersByName(UserNode *users, char name[]){
@@ -80,16 +84,19 @@ BookNode *deleteBook(BookNode *books){
     //Pede o ID, procura o livro na lista, remove o nó com free e retorna a lista atualizada.
     //Precisa tratar quando o livro removido é o primeiro nó.   
     //Só permite excluir se o livro não estiver emprestado. 
+    return books;
 }
 
 int userHasLoans(BookNode *books, char email[]) {
     //Verifica se usuário tem empréstimos
+    return 0;
 }
 
 UserNode *deleteUser(UserNode *users, BookNode *books){
     //Pede o email, procura o usuário na lista, remove o nó com free e retorna a lista atualizada.
     //Precisa tratar quando o usuário removido é o primeiro nó.
     //Só permite excluir se usuário não tiver empréstimos (userHasLoans)
+    return users;
 }
 
 void loanBook(BookNode *books, UserNode *users){
@@ -103,10 +110,12 @@ void returnBook(BookNode *books){
 
 int askBookId(){
     //Pede e retorna um ID de livro.
+    return 0;
 }
 
 int askPublicationYear(){
     //Pede e retorna o ano de publicação.
+    return 0;
 }
 
 void askEmail(char email[]){
@@ -127,8 +136,10 @@ void askAuthor(char author[]){
 
 BookNode *freeBooks(BookNode *books){
     //Percorre a lista de livros, libera todos os nós com free e retorna NULL.
+    return books;
 }
 
 UserNode *freeUsers(UserNode *users){
     //Percorre a lista de usuários, libera todos os nós com free e retorna NULL.
+    return users;
 }
