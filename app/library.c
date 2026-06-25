@@ -280,23 +280,92 @@ void updateUser(UserNode *users){
 }
 
 BookNode *deleteBook(BookNode *books){
-    //Pede o ID, procura o livro na lista, remove o nó com free e retorna a lista atualizada.
-    //Precisa tratar quando o livro removido é o primeiro nó.   
-    //Só permite excluir se o livro não estiver emprestado. 
+    BookNode *aux;
+    BookNode *previous = NULL;
+
+    int id = askBookId();
+
+    for (aux=books; aux!=NULL; aux=aux->next) {
+        if (aux->data.id == id) {
+
+            if (aux->data.status == LOANED) {
+                printf("\nERROR: Livro emprestado não pode ser excluído.");
+                return books;
+            }
+
+            if (aux==books) {
+                books = books->next;
+            } else {
+                previous->next = aux->next;
+            }
+        
+            break;
+        }
+
+        previous = aux;
+    }
+
+    if (aux!=NULL) {
+        free(aux);
+        printf("\n=>Livro Id %d excluído com sucesso.", id);
+    } else {
+        printf("\n=> Livro não encontrado.");
+    }
+
     return books;
 }
 
 int userHasLoans(BookNode *books, char email[]) {
-    //Verifica se usuário tem empréstimos
-    return 0;
+    for(BookNode *aux=books; aux!=NULL; aux=aux->next) {
+        if(aux->data.status == LOANED && strcmp(aux->data.loanerEmail, email) == 0) {
+            return 1; // usuário tem empréstimos
+        }
+    }
+    return 0; // usuário não tem empréstimos
 }
 
 UserNode *deleteUser(UserNode *users, BookNode *books){
-    //Pede o email, procura o usuário na lista, remove o nó com free e retorna a lista atualizada.
-    //Precisa tratar quando o usuário removido é o primeiro nó.
-    //Só permite excluir se usuário não tiver empréstimos (userHasLoans)
+    char email[MAX_TEXT];
+    askEmail(email);
+
+    if (userHasLoans(books, email)) {
+        printf("\nERROR: Usuário possui emprestimos e não pode ser excluído!\n");
+        return users;
+    }
+
+    UserNode *aux;
+    UserNode *previous = NULL;
+
+    for (aux=users; aux!=NULL; aux=aux->next) {
+        if (strcmp(aux->data.email, email) == 0) {
+
+            if (aux==users) {
+                users = users->next;
+            } else {
+                previous->next = aux->next;
+            }
+
+            break;
+        }
+
+        previous = aux;
+    }
+
+    if(aux!=NULL) {
+        free(aux);
+        printf("\n=>Usuário '%s' excluído com sucesso.", email);
+    } else {
+        printf("\n=> usuário não encontrado.");
+    }
+
     return users;
 }
+
+/*  LLM USE
+    Utilizada para revisar as funções de remoção e cadastro, verificando possíveis 
+    problemas relacionados à alocação dinâmica de memória e atualização dos
+    ponteiros na lista simplesmente encadeada.
+*/
 
 void loanBook(BookNode *books, UserNode *users){
     //Pede o ID do livro. Se o livro existir e estiver AVAILABLE, pede o email do usuário. 
