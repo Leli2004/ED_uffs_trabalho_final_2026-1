@@ -13,7 +13,6 @@ int main() {
     int nextBookId = 1;
 
     int option;
-    // LLM USE: utilizada para montar a estrutura do switch/case do loop
     // principal, conectando cada opção do menu (e seus submenus) às
     // funções já implementadas em library.c.
     do {
