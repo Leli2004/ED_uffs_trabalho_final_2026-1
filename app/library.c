@@ -407,7 +407,25 @@ void loanBook(BookNode *books, UserNode *users){
 }
 
 void returnBook(BookNode *books){
-    //Pede o ID do livro. Se o livro existir e estiver LOANED, muda o status para AVAILABLE e limpa loanerEmail.
+    int id = askBookId();
+    BookNode *book = findBookById(books, id);
+
+    printDivider();
+
+    if (book == NULL) {
+        printf("\nERROR: Livro não encontrado.\n");
+        return;
+    }
+
+    if (book->data.status == AVAILABLE) {
+        printf("\nERROR: Livro não está emprestado.\n");
+        return;
+    }
+
+    book->data.status = AVAILABLE;
+    strcpy(book->data.loanerEmail, "");
+
+    printf("\nLivro ID %d devolvido com sucesso!\n", book->data.id);
 }
 
 int askBookId(){
