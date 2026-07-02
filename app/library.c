@@ -5,6 +5,11 @@
 
 #define MAX_TEXT 100
 
+void limparBuffer(){
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
 int getMainMenu(){
     int option=0;
 
@@ -19,6 +24,7 @@ int getMainMenu(){
 
     printf("\nDigite a opção escolhida: ");
     scanf("%d", &option);
+    limparBuffer();
 
     return option;
 }
@@ -33,6 +39,7 @@ int getRegistrationMenu(){
 
     printf("\nDigite a opção escolhida: ");
     scanf("%d", &option);
+    limparBuffer();
 
     return option;
 }
@@ -48,6 +55,7 @@ int getSearchMenu(){
 
     printf("\nDigite a opção escolhida: ");
     scanf("%d", &option);
+    limparBuffer();
 
     return option;
 }
@@ -62,6 +70,7 @@ int getUpdateMenu(){
 
     printf("\nDigite a opção escolhida: ");
     scanf("%d", &option);
+    limparBuffer();
 
     return option;
 }
@@ -76,6 +85,7 @@ int getDeleteMenu(){
 
     printf("\nDigite a opção escolhida: ");
     scanf("%d", &option);
+    limparBuffer();
 
     return option;
 }
@@ -432,6 +442,7 @@ int askBookId(){
     int id;
     printf(">>> Informe o ID do livro: ");
     scanf("%d", &id);
+    limparBuffer();
     return id;
 }
 
@@ -439,29 +450,34 @@ int askPublicationYear(){
     int year;
     printf(">>> Informe o ano de publicação: ");
     scanf("%d", &year);
+    limparBuffer();
     return year;
 }
 
 void askEmail(char email[]){
     printf("\n");
     printf(">>> Informe o e-mail: ");
-    scanf(" %99[^\n]", email);
+    fgets(email, MAX_TEXT, stdin);
+    email[strcspn(email, "\n")] = '\0'; // tira o \n que o fgets deixa no final
 }
 
 void askName(char name[]){
     printf(">>> Informe o nome: ");
-    scanf(" %99[^\n]", name);
+    fgets(name, MAX_TEXT, stdin);
+    name[strcspn(name, "\n")] = '\0';
 }
 
 void askTitle(char title[]){
     printf("\n");
     printf(">>> Informe o título: ");
-    scanf(" %99[^\n]", title);
+    fgets(title, MAX_TEXT, stdin);
+    title[strcspn(title, "\n")] = '\0';
 }
 
 void askAuthor(char author[]){
     printf(">>> Informe o autor: ");
-    scanf(" %99[^\n]", author);
+    fgets(author, MAX_TEXT, stdin);
+    author[strcspn(author, "\n")] = '\0';
 }
 
 BookNode *freeBooks(BookNode *books){

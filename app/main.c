@@ -17,7 +17,7 @@ int main() {
         option = getMainMenu();
 
         switch (option) {
-            case 1: { // Cadastro
+            case 1: { // Cadastro livro
                 int sub = getRegistrationMenu();
                 if (sub == 1) {
                     books = registerBook(books, &nextBookId);
@@ -26,13 +26,14 @@ int main() {
                 }
                 break;
             }
-            case 2: { // Consulta
+            case 2: { // Consulta os livros
                 int sub = getSearchMenu();
                 if (sub == 1) {
                     int searchOption;
                     printf("\nBuscar por: 1 - Codigo | 2 - Autor\n");
-                    printf("Digite a opção escolhida: ");
+                    printf("Digite a opcao escolhida: ");
                     scanf("%d", &searchOption);
+                    limparBuffer();
 
                     if (searchOption == 1) {
                         int id = askBookId();
@@ -54,6 +55,7 @@ int main() {
                     printf("\nBuscar por: 1 - Email | 2 - Nome\n");
                     printf("Digite a opção escolhida: ");
                     scanf("%d", &searchOption);
+                    limparBuffer();
 
                     if (searchOption == 1) {
                         char email[MAX_TEXT];
@@ -107,7 +109,7 @@ int main() {
                 printf("\nEncerrando o sistema...\n");
                 break;
             default:
-                printf("\nOpção inválida!\n");
+                printf("\nOpcaoo invalida!\n");
         }
 
     } while (option != 0);
