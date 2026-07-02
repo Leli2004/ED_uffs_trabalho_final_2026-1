@@ -90,6 +90,12 @@ int getDeleteMenu(){
     return option;
 }
 
+/*  LLM USE:
+    Utilizada para gerar a implementação base das funções dos menus.
+    O auxílio consistiu na criação de funções com estrutura semelhante,
+    alterando apenas as opções apresentadas em cada submenu.
+*/
+
 void printDivider(){
     printf("\n*********************************\n");
 }
@@ -382,6 +388,12 @@ UserNode *deleteUser(UserNode *users, BookNode *books){
 
     return users;
 }
+
+/*  LLM USE
+    Utilizada para revisar as funções de remoção e cadastro, verificando possíveis 
+    problemas relacionados à alocação dinâmica de memória e atualização dos
+    ponteiros na lista simplesmente encadeada.
+*/
 
 void loanBook(BookNode *books, UserNode *users){
     int id = askBookId();

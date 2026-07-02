@@ -13,11 +13,15 @@ int main() {
     int nextBookId = 1;
 
     int option;
+    // LLM USE: utilizada para montar a estrutura do switch/case do loop
+    // principal, conectando cada opção do menu (e seus submenus) às
+    // funções já implementadas em library.c.
+    
     do {
         option = getMainMenu();
 
         switch (option) {
-            case 1: { // Cadastro livro
+            case 1: { // Cadastros
                 int sub = getRegistrationMenu();
                 if (sub == 1) {
                     books = registerBook(books, &nextBookId);
@@ -26,7 +30,7 @@ int main() {
                 }
                 break;
             }
-            case 2: { // Consulta os livros
+            case 2: { // Consultas
                 int sub = getSearchMenu();
                 if (sub == 1) {
                     int searchOption;
