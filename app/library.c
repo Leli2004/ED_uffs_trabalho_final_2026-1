@@ -373,15 +373,37 @@ UserNode *deleteUser(UserNode *users, BookNode *books){
     return users;
 }
 
-/*  LLM USE
-    Utilizada para revisar as funções de remoção e cadastro, verificando possíveis 
-    problemas relacionados à alocação dinâmica de memória e atualização dos
-    ponteiros na lista simplesmente encadeada.
-*/
-
 void loanBook(BookNode *books, UserNode *users){
-    //Pede o ID do livro. Se o livro existir e estiver AVAILABLE, pede o email do usuário. 
-    //Se o usuário existir, muda o livro para LOANED e copia o email para loanerEmail.
+    int id = askBookId();
+    BookNode *book = findBookById(books, id);
+
+    printDivider();
+
+    if (book == NULL) {
+        printf("\nERROR: Livro não encontrado.\n");
+        return;
+    }
+
+    if (book->data.status == LOANED) {
+        printf("\nERROR: Livro já está emprestado para '%s'.\n", book->data.loanerEmail);
+        return;
+    }
+
+    char email[MAX_TEXT];
+    askEmail(email);
+    UserNode *user = findUserByEmail(users, email);
+
+    printDivider();
+
+    if (user == NULL) {
+        printf("\nERROR: Usuário não cadastrado.\n");
+        return;
+    }
+
+    book->data.status = LOANED;
+    strcpy(book->data.loanerEmail, email);
+
+    printf("\nLivro ID %d emprestado para '%s' com sucesso!\n", book->data.id, email);
 }
 
 void returnBook(BookNode *books){
