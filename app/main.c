@@ -40,6 +40,7 @@ int main() {
                     if (searchOption == 1) {
                         int id = askBookId();
                         BookNode *found = findBookById(books, id);
+                        printDivider();
                         if (found != NULL) {
                             printBook(found->data);
                         } else {
@@ -48,6 +49,7 @@ int main() {
                     } else if (searchOption == 2) {
                         char author[MAX_TEXT];
                         askAuthor(author);
+                        printDivider();
                         findBooksByAuthor(books, author);
                     }
                 } else if (sub == 2) {
@@ -60,6 +62,7 @@ int main() {
                         char email[MAX_TEXT];
                         askEmail(email);
                         UserNode *found = findUserByEmail(users, email);
+                        printDivider();
                         if (found != NULL) {
                             printUser(found->data);
                         } else {
@@ -68,11 +71,13 @@ int main() {
                     } else if (searchOption == 2) {
                         char name[MAX_TEXT];
                         askName(name);
+                        printDivider();
                         findUsersByName(users, name);
                     }
                 } else if (sub == 3) {
                     char email[MAX_TEXT];
                     askEmail(email);
+                    printDivider();
                     findLoansByEmail(books, email);
                 }
                 break;

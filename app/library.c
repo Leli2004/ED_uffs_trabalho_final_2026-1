@@ -80,11 +80,9 @@ int getDeleteMenu(){
     return option;
 }
 
-/*  LLM USE:
-    Utilizada para gerar a implementação base das funções dos menus.
-    O auxílio consistiu na criação de funções com estrutura semelhante,
-    alterando apenas as opções apresentadas em cada submenu.
-*/
+void printDivider(){
+    printf("\n*********************************\n");
+}
 
 BookNode *registerBook(BookNode *books, int *nextId){
     BookNode *new = (BookNode*) malloc(sizeof(BookNode));
@@ -101,6 +99,7 @@ BookNode *registerBook(BookNode *books, int *nextId){
     new->next = books;
     books = new;
 
+    printDivider();
     printf("\nLivro ID %d cadastrado com sucesso!\n", new->data.id);
 
     return books;
@@ -111,6 +110,7 @@ UserNode *registerUser(UserNode *users){
     askEmail(email);
 
     if (findUserByEmail(users, email) != NULL) {
+        printDivider();
         printf("\nERROR: Usuário com email já cadastrado!\n");
         return users;
     }
@@ -123,6 +123,7 @@ UserNode *registerUser(UserNode *users){
     new->next = users;
     users = new;
 
+    printDivider();
     printf("\nUsuário '%s' cadastrado com sucesso!\n", new->data.email);
 
     return users;
@@ -250,6 +251,8 @@ void updateBook(BookNode *books){
 
     BookNode *book = findBookById(books, id);
 
+    printDivider();
+
     if (book == NULL) {
         printf("\n=> Livro nao encontrado.\n");
         return;
@@ -260,6 +263,7 @@ void updateBook(BookNode *books){
     askAuthor(book->data.author);
     book->data.publicationYear = askPublicationYear();
 
+    printDivider();
     printf("\n=> Livro ID %d atualizado com sucesso!\n", book->data.id);
 }
 
@@ -268,14 +272,18 @@ void updateUser(UserNode *users){
     askEmail(email);
 
     UserNode *user = findUserByEmail(users, email);
+
+    printDivider();
+
     if (user == NULL) {
         printf("\n=> Usuário não cadastrado.\n");
         return;
     }
-    
+
     printf("\nInforme o novo nome:\n");
     askName(user->data.name);
 
+    printDivider();
     printf("\nUsuário '%s' atualizado com sucesso!\n", user->data.email);
 }
 
@@ -284,6 +292,8 @@ BookNode *deleteBook(BookNode *books){
     BookNode *previous = NULL;
 
     int id = askBookId();
+
+    printDivider();
 
     for (aux=books; aux!=NULL; aux=aux->next) {
         if (aux->data.id == id) {
@@ -327,6 +337,8 @@ int userHasLoans(BookNode *books, char email[]) {
 UserNode *deleteUser(UserNode *users, BookNode *books){
     char email[MAX_TEXT];
     askEmail(email);
+
+    printDivider();
 
     if (userHasLoans(books, email)) {
         printf("\nERROR: Usuário possui emprestimos e não pode ser excluído!\n");
