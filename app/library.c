@@ -464,20 +464,27 @@ void askAuthor(char author[]){
     scanf(" %99[^\n]", author);
 }
 
-/*
-    LLM USE:
-    Utilizada para sugerir o formato de leitura scanf(" %99[^\n]", ...).
-    Permite ler linhas completas até o ENTER, incluindo espaços, sem a necessidade do fgets().
-    Limita a entrada a 99 caracteres para evitar overflow.
-*/
-
 BookNode *freeBooks(BookNode *books){
-    //Percorre a lista de livros, libera todos os nós com free e retorna NULL.
+    BookNode *aux;
+
+    while (books != NULL) {
+        aux = books;
+        books = books->next;
+        free(aux);
+    }
+
     return books;
 }
 
 UserNode *freeUsers(UserNode *users){
-    //Percorre a lista de usuários, libera todos os nós com free e retorna NULL.
+    UserNode *aux;
+
+    while (users != NULL) {
+        aux = users;
+        users = users->next;
+        free(aux);
+    }
+
     return users;
 }
 
